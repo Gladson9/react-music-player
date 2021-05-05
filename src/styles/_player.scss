@@ -9,6 +9,7 @@
 .time-control {
   width: 50%;
   display: flex;
+  align-items: center;
   // padding: 1rem 0rem;
 
   input {
@@ -41,12 +42,18 @@ input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   height: 16px;
   width: 16px;
-  background-color: black;
+}
+
+input[type="range"]::-moz-range-thumb {
+  -webkit-appearance: none;
+  border: none;
+  background: transparent;
 }
 
 .track {
   background: blue;
   width: 100%;
+  height: 1rem;
   position: relative;
   border-radius: 1rem;
   overflow: hidden;
@@ -59,5 +66,15 @@ input[type="range"]::-webkit-slider-thumb {
   position: absolute;
   top: 0;
   left: 0;
-  transform: translateX(10%);
+  transform: translateX(0%);
+  pointer-events: none;
+}
+
+@media screen and (max-width: 768px) {
+  .time-control{
+    width: 90%;
+  }
+  .play-control{
+    width: 60%;
+  }
 }
