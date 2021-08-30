@@ -3,7 +3,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
+  // margin-top: 2.3rem;
 }
 
 .time-control {
@@ -71,10 +72,10 @@ input[type="range"]::-moz-range-thumb {
 }
 
 @media screen and (max-width: 768px) {
-  .time-control{
+  .time-control {
     width: 90%;
   }
-  .play-control{
+  .play-control {
     width: 60%;
   }
 }
