@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 //Importing styles
 import "./styles/app.scss";
 //Importing Components
@@ -24,7 +24,31 @@ function App() {
   });
 
   const [libraryStatus, setLibraryStatus] = useState(false);
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme")
+      ? JSON.parse(localStorage.getItem("theme"))
+      : "light"
+  );
+
   // Handlers
+
+  //Theme switcher
+  const rootElement = document.querySelector("#root");
+  const setThemeClass = () => {
+    if (theme === "light") {
+      rootElement.classList.add("light");
+      rootElement.classList.remove("dark");
+    } else {
+      rootElement.classList.toggle("dark");
+      rootElement.classList.remove("light");
+    }
+    localStorage.setItem("theme", JSON.stringify(theme));
+  };
+
+  useEffect(() => {
+    setThemeClass();
+  }, [theme]);
+
   const timeUpdateHandler = (e) => {
     const current = e.target.currentTime;
     const duration = e.target.duration;
@@ -45,9 +69,15 @@ function App() {
     await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
     if (isPlaying) audioReference.current.play();
   };
+
   return (
     <div className={`App ${libraryStatus ? "library-active" : ""}`}>
-      <Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} />
+      <Nav
+        libraryStatus={libraryStatus}
+        setLibraryStatus={setLibraryStatus}
+        setTheme={setTheme}
+        theme={theme}
+      />
       <Song currentSong={currentSong} />
       <Player
         audioReference={audioReference}
@@ -67,6 +97,7 @@ function App() {
         isPlaying={isPlaying}
         setSongs={setSongs}
         libraryStatus={libraryStatus}
+        theme={theme}
       />
       <audio
         onTimeUpdate={timeUpdateHandler}

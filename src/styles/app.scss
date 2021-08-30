@@ -1,3 +1,5 @@
+@import "./variables";
+
 * {
   margin: 0;
   padding: 0;
@@ -7,7 +9,7 @@
 h1,
 h2,
 h3 {
-  color: rgb(54, 54, 54);
+  color: var(--heading-h123);
 }
 body {
   font-family: "Lato", sans-serif;
@@ -16,15 +18,20 @@ body {
 h3,
 h4 {
   font-weight: 400;
-  color: rgb(105, 105, 105);
+  color: var(--heading-h34);
 }
-
-.App{
+#root {
+  background-color: var(--background);
+  transition: all 0.5s ease;
+}
+.App {
+  height: 100vh;
+  color: var(--text);
   transition: all 0.5s ease;
 }
 
-.library-active{
-  margin-left: 30%;
+.library-active {
+  margin-left: 20%;
 }
 
 @import "./song";
