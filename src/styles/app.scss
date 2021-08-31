@@ -20,14 +20,12 @@ h4 {
   font-weight: 400;
   color: var(--heading-h34);
 }
-#root {
-  background-color: var(--background);
-  transition: all 0.5s ease;
-}
+
 .App {
   height: 100vh;
   color: var(--text);
   transition: all 0.5s ease;
+  background-color: var(--background);
 }
 
 .library-active {
