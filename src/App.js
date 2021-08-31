@@ -32,21 +32,8 @@ function App() {
 
   // Handlers
 
-  //Theme switcher
-  const rootElement = document.querySelector("#root");
-  const setThemeClass = () => {
-    if (theme === "light") {
-      rootElement.classList.add("light");
-      rootElement.classList.remove("dark");
-    } else {
-      rootElement.classList.toggle("dark");
-      rootElement.classList.remove("light");
-    }
-    localStorage.setItem("theme", JSON.stringify(theme));
-  };
-
   useEffect(() => {
-    setThemeClass();
+    localStorage.setItem("theme", JSON.stringify(theme));
   }, [theme]);
 
   const timeUpdateHandler = (e) => {
@@ -71,41 +58,43 @@ function App() {
   };
 
   return (
-    <div className={`App ${libraryStatus ? "library-active" : ""}`}>
-      <Nav
-        libraryStatus={libraryStatus}
-        setLibraryStatus={setLibraryStatus}
-        setTheme={setTheme}
-        theme={theme}
-      />
-      <Song currentSong={currentSong} />
-      <Player
-        audioReference={audioReference}
-        isPlaying={isPlaying}
-        setIsPlaying={setIsPlaying}
-        currentSong={currentSong}
-        setSongInfo={setSongInfo}
-        songInfo={songInfo}
-        songs={songs}
-        setCurrentSong={setCurrentSong}
-        setSongs={setSongs}
-      />
-      <Library
-        audioReference={audioReference}
-        songs={songs}
-        setCurrentSong={setCurrentSong}
-        isPlaying={isPlaying}
-        setSongs={setSongs}
-        libraryStatus={libraryStatus}
-        theme={theme}
-      />
-      <audio
-        onTimeUpdate={timeUpdateHandler}
-        onLoadedMetadata={timeUpdateHandler}
-        ref={audioReference}
-        src={currentSong.audio}
-        onEnded={songEndHandler}
-      ></audio>
+    <div className={`App ${theme}`}>
+      <div className={`${libraryStatus ? "library-active" : ""}`}>
+        <Nav
+          libraryStatus={libraryStatus}
+          setLibraryStatus={setLibraryStatus}
+          setTheme={setTheme}
+          theme={theme}
+        />
+        <Song currentSong={currentSong} />
+        <Player
+          audioReference={audioReference}
+          isPlaying={isPlaying}
+          setIsPlaying={setIsPlaying}
+          currentSong={currentSong}
+          setSongInfo={setSongInfo}
+          songInfo={songInfo}
+          songs={songs}
+          setCurrentSong={setCurrentSong}
+          setSongs={setSongs}
+        />
+        <Library
+          audioReference={audioReference}
+          songs={songs}
+          setCurrentSong={setCurrentSong}
+          isPlaying={isPlaying}
+          setSongs={setSongs}
+          libraryStatus={libraryStatus}
+          theme={theme}
+        />
+        <audio
+          onTimeUpdate={timeUpdateHandler}
+          onLoadedMetadata={timeUpdateHandler}
+          ref={audioReference}
+          src={currentSong.audio}
+          onEnded={songEndHandler}
+        ></audio>
+      </div>
     </div>
   );
 }
