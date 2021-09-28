@@ -26,9 +26,14 @@ h4 {
   color: var(--text);
   transition: all 0.5s ease;
   background-color: var(--background);
+
+  & > div {
+    transition: all 0.5s ease;
+  }
 }
 
 .library-active {
+  transition: all 0.5s ease;
   margin-left: 20%;
 }
 
@@ -36,3 +41,4 @@ h4 {
 @import "./player";
 @import "./library";
 @import "./nav";
+@import "./animate";

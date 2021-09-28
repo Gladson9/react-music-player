@@ -66,7 +66,7 @@ function App() {
           setTheme={setTheme}
           theme={theme}
         />
-        <Song currentSong={currentSong} />
+        <Song currentSong={currentSong} isPlaying={isPlaying} />
         <Player
           audioReference={audioReference}
           isPlaying={isPlaying}
@@ -93,7 +93,7 @@ function App() {
           ref={audioReference}
           src={currentSong.audio}
           onEnded={songEndHandler}
-        ></audio>
+        />
       </div>
     </div>
   );
