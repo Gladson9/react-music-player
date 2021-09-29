@@ -32,6 +32,26 @@ function chillHop() {
       active: false,
     },
     {
+      name: "Looking In",
+      cover:
+        "https://chillhop.com/wp-content/uploads/2021/08/af3ce13ad39d38057f00144f8a7c295877ccfec1-1024x1024.jpg",
+      artist: "Smile High,Teddy Roxpin",
+      audio: "https://mp3.chillhop.com/serve.php/?mp3=23335",
+      color: ["#A7D9D6", "#337782"],
+      id: uuidv4(),
+      active: false,
+    },
+    {
+      name: "Bird In The Floorboards",
+      cover:
+        "https://chillhop.com/wp-content/uploads/2021/09/6a9ef8ac00e168d3308fdf9e336874c03fab829d-1024x1024.jpg",
+      artist: "Delayde",
+      audio: "https://mp3.chillhop.com/serve.php/?mp3=23191",
+      color: ["#B7E09C", "#E2D28C"],
+      id: uuidv4(),
+      active: false,
+    },
+    {
       name: "Nightfall",
       cover:
         "https://chillhop.com/wp-content/uploads/2020/07/ef95e219a44869318b7806e9f0f794a1f9c451e4-1024x1024.jpg",
