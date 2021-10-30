@@ -14,7 +14,7 @@ function App() {
   const audioReference = useRef(null);
   //State
   const [songs, setSongs] = useState();
-  const [currentSong, setCurrentSong] = useState();
+  const [currentSong, setCurrentSong] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const [songInfo, setSongInfo] = useState({
@@ -36,18 +36,21 @@ function App() {
     db.collection("music-list")
       .orderBy("name", "asc")
       .onSnapshot((snapshot) => {
-        setSongs(
-          snapshot.docs.map((music) => {
-            return {
-              id: music.id,
-              ...music.data(),
-            };
-          })
-        );
-        setCurrentSong(songs && songs[0]);
+        if (!currentSong) {
+          setSongs(
+            snapshot.docs.map((music, index) => {
+              return {
+                id: music.id,
+                ...music.data(),
+                active: index === 0 ? true : false,
+              };
+            })
+          );
+          setCurrentSong(songs && songs[0]);
+        }
       });
     localStorage.setItem("theme", JSON.stringify(theme));
-  }, [theme, songs]);
+  }, [theme, currentSong]);
 
   const timeUpdateHandler = (e) => {
     const current = e.target.currentTime;
@@ -66,6 +69,21 @@ function App() {
   };
   const songEndHandler = async () => {
     let currentIndex = songs.findIndex((song) => song.id === currentSong.id);
+    setSongs(
+      songs.map((song, index) => {
+        if (index === (currentIndex + 1) % songs.length) {
+          return {
+            ...song,
+            active: true,
+          };
+        } else {
+          return {
+            ...song,
+            active: false,
+          };
+        }
+      })
+    );
     await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
     if (isPlaying) audioReference.current.play();
   };
