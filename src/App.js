@@ -14,7 +14,7 @@ function App() {
   const audioReference = useRef(null);
   //State
   const [songs, setSongs] = useState();
-  const [currentSong, setCurrentSong] = useState();
+  const [currentSong, setCurrentSong] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const [songInfo, setSongInfo] = useState({
@@ -37,17 +37,20 @@ function App() {
       .orderBy("name", "asc")
       .onSnapshot((snapshot) => {
         setSongs(
-          snapshot.docs.map((music) => {
+          snapshot.docs.map((music, index) => {
             return {
               id: music.id,
               ...music.data(),
+              active: index === 0 ? true : false,
             };
           })
         );
-        setCurrentSong(songs && songs[0]);
+        if (!currentSong) {
+          setCurrentSong(songs && songs[0]);
+        }
       });
     localStorage.setItem("theme", JSON.stringify(theme));
-  }, [theme, songs]);
+  }, [theme]);
 
   const timeUpdateHandler = (e) => {
     const current = e.target.currentTime;
