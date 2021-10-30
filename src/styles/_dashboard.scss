@@ -1,0 +1,88 @@
+.admin-container {
+  width: 50rem;
+
+  .admin-controls {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      padding: 0.5rem 1rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    #add {
+      background-color: #38c0ff;
+      color: white;
+
+      &:hover {
+        background-color: #6cccf8;
+      }
+    }
+
+    #logout {
+      background-color: #fc4747;
+      color: white;
+
+      &:hover {
+        background-color: #f86a6a;
+      }
+    }
+  }
+  .music-list {
+    display: flex;
+    flex-direction: column;
+    // width: 100%;
+    .music {
+      height: 3rem;
+      width: 100%;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: rgba(100, 100, 111, 0.4) 0px 7px 29px 0px;
+
+      h3 {
+        margin-left: 1rem;
+        flex: 2;
+      }
+      button {
+        margin-right: 1rem;
+        padding: 0.3rem 0.8rem;
+        cursor: pointer;
+        border: none;
+      }
+
+      .delete {
+        background-color: #f81f1f;
+        color: white;
+
+        &:hover {
+          background-color: #f81f1fb7;
+        }
+      }
+      .update {
+        background-color: #38c0ff;
+        color: white;
+
+        &:hover {
+          background-color: #6cccf8;
+        }
+      }
+    }
+  }
+}
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: #000000e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}

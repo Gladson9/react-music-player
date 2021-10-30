@@ -7,14 +7,14 @@ import Song from "./components/Song";
 import Library from "./components/Library";
 import Nav from "./components/Nav";
 // Importing song data
-import data from "./data";
+import db from "./firebase";
 
 function App() {
   //reference
   const audioReference = useRef(null);
   //State
-  const [songs, setSongs] = useState(data());
-  const [currentSong, setCurrentSong] = useState(songs[0]);
+  const [songs, setSongs] = useState();
+  const [currentSong, setCurrentSong] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
 
   const [songInfo, setSongInfo] = useState({
@@ -33,8 +33,21 @@ function App() {
   // Handlers
 
   useEffect(() => {
+    db.collection("music-list")
+      .orderBy("name", "asc")
+      .onSnapshot((snapshot) => {
+        setSongs(
+          snapshot.docs.map((music) => {
+            return {
+              id: music.id,
+              ...music.data(),
+            };
+          })
+        );
+        setCurrentSong(songs && songs[0]);
+      });
     localStorage.setItem("theme", JSON.stringify(theme));
-  }, [theme]);
+  }, [theme, songs]);
 
   const timeUpdateHandler = (e) => {
     const current = e.target.currentTime;
@@ -91,7 +104,7 @@ function App() {
           onTimeUpdate={timeUpdateHandler}
           onLoadedMetadata={timeUpdateHandler}
           ref={audioReference}
-          src={currentSong.audio}
+          src={currentSong && currentSong.audio}
           onEnded={songEndHandler}
         />
       </div>

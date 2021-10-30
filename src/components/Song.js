@@ -3,12 +3,12 @@ function Song({ currentSong, isPlaying }) {
   return (
     <div className="song-container">
       <img
-        alt={currentSong.name}
-        src={currentSong.cover}
+        alt={currentSong && currentSong.name}
+        src={currentSong && currentSong.cover}
         className={isPlaying ? "spin-animation" : ""}
       />
-      <h2>{currentSong.name}</h2>
-      <h3>{currentSong.artist}</h3>
+      <h2>{currentSong && currentSong.name}</h2>
+      <h3>{currentSong && currentSong.artist}</h3>
     </div>
   );
 }
