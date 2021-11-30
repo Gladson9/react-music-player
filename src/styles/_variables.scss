@@ -11,6 +11,8 @@
   --dark-h3-h4: #696969;
   --light-h1-h2-h3: #d4d4d4;
   --light-h3-h4: #b3adad;
+  --music-dark: #33323a;
+  --music-light: #9898984d;
 }
 
 .light {
@@ -20,6 +22,7 @@
   --hover-text-color: var(--light-hover-text-color);
   --heading-h123: var(--dark-h1-h2-h3);
   --heading-h34: var(--dark-h3-h4);
+  --music: var(--music-light);
 }
 
 .dark {
@@ -29,4 +32,5 @@
   --hover-text-color: var(--dark-hover-text-color);
   --heading-h123: var(--light-h1-h2-h3);
   --heading-h34: var(--light-h3-h4);
+  --music: var(--music-dark);
 }

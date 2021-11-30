@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
-import { auth } from "../../firebase";
+import { useHistory } from "react-router";
+import db, { auth } from "../../firebase";
 
 const AuthContext = React.createContext();
 
@@ -8,6 +9,8 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
+  const history = useHistory();
+
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
@@ -15,10 +18,29 @@ export function AuthProvider({ children }) {
     return auth.signInWithEmailAndPassword(email, password);
   }
 
+  function signup(email, password) {
+    return auth.createUserWithEmailAndPassword(email, password);
+  }
+
   function logout() {
+    setCurrentUser(null);
+    history.push("/");
     return auth.signOut();
   }
 
+  function loadMusicToAccount(user) {
+    // console.log(user);
+    db.collection("music-list")
+      .get()
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          db.collection("users")
+            .doc(user.user.uid)
+            .collection("music-list")
+            .add(doc.data());
+        });
+      });
+  }
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
@@ -30,8 +52,11 @@ export function AuthProvider({ children }) {
 
   const value = {
     currentUser,
+    setCurrentUser,
     login,
     logout,
+    signup,
+    loadMusicToAccount,
   };
 
   return (

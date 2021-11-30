@@ -1,9 +1,13 @@
 import React from "react";
 import db from "../../firebase";
 
-const Music = ({ open, song, setOperation, setSongId }) => {
+const Music = ({ open, song, setOperation, setSongId, currentUser }) => {
   const deleteSong = () => {
-    db.collection("music-list").doc(song.id).delete();
+    db.collection("users")
+      .doc(currentUser.uid)
+      .collection("music-list")
+      .doc(song.id)
+      .delete();
   };
 
   const handleUpdateMusic = () => {

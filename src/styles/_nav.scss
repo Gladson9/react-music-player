@@ -1,17 +1,23 @@
 nav {
   min-height: 10vh;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
   background-color: transparent;
   color: var(--text);
-
+  flex-wrap: wrap;
   h1 {
     color: var(--text);
   }
+  a {
+    text-decoration: none;
+  }
   .nav-list {
     display: flex;
-
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
     button {
       color: var(--text);
       background: transparent;
@@ -29,6 +35,27 @@ nav {
       font-size: 2rem;
       cursor: pointer;
     }
+    .login {
+      color: var(--text);
+      text-decoration: none;
+      margin-left: 1.2rem;
+      font-size: 1.2rem;
+    }
+    .logout {
+      color: red;
+      cursor: pointer;
+      margin: 0 1.2rem;
+      font-size: 1.2rem;
+    }
+    .nav-links {
+      display: flex;
+      justify-content: center;
+    }
+    @media screen and (max-width: 500px) {
+      .nav-links {
+        flex: 1;
+      }
+    }
   }
 }
 
@@ -36,6 +63,16 @@ nav {
   nav {
     button {
       z-index: 1;
+    }
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .nav-list {
+    margin-top: 1rem;
+
+    .nav-links {
+      padding: 1rem;
     }
   }
 }

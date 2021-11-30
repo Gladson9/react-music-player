@@ -8,6 +8,7 @@
   img {
     width: 20%;
     border-radius: 50%;
+    aspect-ratio: 1/1;
   }
 
   h2 {
@@ -19,10 +20,9 @@
   }
 }
 
-
 @media screen and (max-width: 768px) {
-  .song-container{
-    img{
+  .song-container {
+    img {
       width: 60%;
     }
   }

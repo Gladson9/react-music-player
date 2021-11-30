@@ -1,8 +1,10 @@
 .base {
   width: 100%;
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--text);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 .title {
@@ -10,7 +12,7 @@
   margin-top: 3rem;
 }
 .container {
-  margin-top: 3rem;
+  margin: 3rem 0;
 
   form {
     display: flex;
@@ -29,6 +31,12 @@
       &:hover {
         background-color: #6cccf8;
       }
+    }
+    p {
+      font-size: 1.3rem;
+    }
+    .link {
+      color: #25627e;
     }
   }
 }

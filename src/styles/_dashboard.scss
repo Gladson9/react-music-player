@@ -1,6 +1,9 @@
 .admin-container {
-  width: 50rem;
-
+  // width: 50rem;
+  .user {
+    font-size: 1.6rem;
+    padding: 1rem 0;
+  }
   .admin-controls {
     width: 100%;
     display: flex;
@@ -35,13 +38,14 @@
     flex-direction: column;
     // width: 100%;
     .music {
+      background: var(--music);
       height: 3rem;
       width: 100%;
       margin-top: 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      box-shadow: rgba(100, 100, 111, 0.4) 0px 7px 29px 0px;
+      // box-shadow: rgba(100, 100, 111, 0.4) 0px 7px 29px 0px;
 
       h3 {
         margin-left: 1rem;
@@ -85,4 +89,15 @@
   align-items: center;
   justify-content: center;
   z-index: 100;
+}
+
+@media screen and (min-width: 700px) {
+  .admin-container {
+    width: 40rem;
+  }
+}
+@media screen and (max-width: 700px) {
+  .admin-container {
+    width: 90vw;
+  }
 }

@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import Base from "./Base";
 import AddMusicModal from "./AddMusicModal";
 import Music from "./Music";
-import db from "./../../firebase";
+import db from "../../firebase";
 
 const AdminDashboard = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -17,12 +17,15 @@ const AdminDashboard = () => {
   const [error, setError] = useState("");
   const { logout } = useAuth();
   const history = useHistory();
+  const { currentUser } = useAuth();
 
   // getting music list from firebase
   const [songs, setSongs] = useState([]);
 
   useEffect(() => {
-    db.collection("music-list")
+    db.collection("users")
+      .doc(currentUser.uid)
+      .collection("music-list")
       .orderBy("name", "asc")
       .onSnapshot((snapshot) => {
         setSongs(
@@ -40,7 +43,7 @@ const AdminDashboard = () => {
     setError("");
     try {
       logout();
-      history.push("/signin");
+      history.push("/");
     } catch {
       setError("Failed to log out");
     }
@@ -52,15 +55,16 @@ const AdminDashboard = () => {
   };
 
   return (
-    <Base title="Admin Dashboard">
+    <Base title="Dashboard">
       <div className="admin-container">
+        <h3 className="user">User: {currentUser.email.split("@")[0]}</h3>
         <div className="admin-controls">
           <button id="add" onClick={handleAddMusic}>
             Add Music
           </button>
-          <button id="logout" onClick={handleLogout}>
+          {/* <button id="logout" onClick={handleLogout}>
             Logout
-          </button>
+          </button> */}
         </div>
         <div className="music-list">
           {songs.map((song) => (
@@ -70,6 +74,7 @@ const AdminDashboard = () => {
               setOperation={setOperation}
               song={song}
               open={open}
+              currentUser={currentUser}
             />
           ))}
         </div>

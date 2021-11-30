@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 //Importing styles
 import "./styles/app.scss";
 //Importing Components
@@ -8,6 +8,8 @@ import Library from "./components/Library";
 import Nav from "./components/Nav";
 // Importing song data
 import db from "./firebase";
+import { ThemeContext } from "./components/context/theme/ThemeContext";
+import { useAuth } from "./components/context/AuthContext";
 
 function App() {
   //reference
@@ -24,33 +26,67 @@ function App() {
   });
 
   const [libraryStatus, setLibraryStatus] = useState(false);
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme")
-      ? JSON.parse(localStorage.getItem("theme"))
-      : "light"
-  );
+  const [theme, setTheme] = useContext(ThemeContext);
+  const { currentUser } = useAuth();
+
+  // const [theme, setTheme] = useState(
+  //   localStorage.getItem("theme")
+  //     ? JSON.parse(localStorage.getItem("theme"))
+  //     : "light"
+  // );
 
   // Handlers
 
   useEffect(() => {
-    db.collection("music-list")
-      .orderBy("name", "asc")
-      .onSnapshot((snapshot) => {
-        if (!currentSong) {
-          setSongs(
-            snapshot.docs.map((music, index) => {
-              return {
-                id: music.id,
-                ...music.data(),
-                active: index === 0 ? true : false,
-              };
-            })
-          );
-          setCurrentSong(songs && songs[0]);
-        }
-      });
-    localStorage.setItem("theme", JSON.stringify(theme));
-  }, [theme, currentSong]);
+    if (currentUser) {
+      db.collection("users")
+        .doc(currentUser.uid)
+        .collection("music-list")
+        .orderBy("name", "asc")
+        .onSnapshot((snapshot) => {
+          if (!currentSong) {
+            setSongs(
+              snapshot.docs.map((music, index) => {
+                return {
+                  id: music.id,
+                  ...music.data(),
+                  active: index === 0 ? true : false,
+                };
+              })
+            );
+            setCurrentSong(songs && songs[0]);
+          }
+        });
+    } else {
+      console.log(currentUser);
+      db.collection("music-list")
+        .orderBy("name", "asc")
+        .onSnapshot((snapshot) => {
+          if (!currentSong) {
+            setSongs(
+              snapshot.docs.map((music, index) => {
+                return {
+                  id: music.id,
+                  ...music.data(),
+                  active: index === 0 ? true : false,
+                };
+              })
+            );
+            setCurrentSong(songs && songs[0]);
+          } else {
+            setSongs(
+              snapshot.docs.map((music, index) => {
+                return {
+                  id: music.id,
+                  ...music.data(),
+                  active: index === 0 ? true : false,
+                };
+              })
+            );
+          }
+        });
+    }
+  }, [currentSong, currentUser]);
 
   const timeUpdateHandler = (e) => {
     const current = e.target.currentTime;
@@ -94,8 +130,7 @@ function App() {
         <Nav
           libraryStatus={libraryStatus}
           setLibraryStatus={setLibraryStatus}
-          setTheme={setTheme}
-          theme={theme}
+          showLibraryStatus={true}
         />
         <Song currentSong={currentSong} isPlaying={isPlaying} />
         <Player

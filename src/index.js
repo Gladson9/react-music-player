@@ -3,24 +3,25 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import AdminDashboard from "./components/admin/AdminDashboard";
-import AdminRoute from "./components/admin/AdminRoute";
-import SignIn from "./components/admin/SignIn";
+import UserDashboard from "./components/user/UserDashboard";
+import UserRoute from "./components/user/UserRoute";
+import SignIn from "./components/user/SignIn";
 import { AuthProvider } from "./components/context/AuthContext";
+import { ThemeState } from "./components/context/theme/ThemeState";
+import SignUp from "./components/user/SignUp";
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <Switch>
-          <Route path="/" exact component={App} />
-          <AdminRoute
-            path="/admin/dashboard"
-            exact
-            component={AdminDashboard}
-          />
-          <Route path="/signin" exact component={SignIn} />
-        </Switch>
-      </AuthProvider>
+      <ThemeState>
+        <AuthProvider>
+          <Switch>
+            <Route path="/" exact component={App} />
+            <UserRoute path="/dashboard" exact component={UserDashboard} />
+            <Route path="/login" exact component={SignIn} />
+            <Route path="/signup" exact component={SignUp} />
+          </Switch>
+        </AuthProvider>
+      </ThemeState>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
