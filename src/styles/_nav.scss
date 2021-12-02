@@ -9,8 +9,10 @@ nav {
   flex-wrap: wrap;
   h1 {
     color: var(--text);
+    padding: 1rem 0;
   }
   a {
+    flex-basis: 5rem;
     text-decoration: none;
   }
   .nav-list {
@@ -69,8 +71,6 @@ nav {
 
 @media screen and (max-width: 390px) {
   .nav-list {
-    margin-top: 1rem;
-
     .nav-links {
       padding: 1rem;
     }

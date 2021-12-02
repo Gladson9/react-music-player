@@ -238,6 +238,7 @@ const AddMusicModal = ({
               placeholder="Audio Link"
               value={audioLink}
               onChange={(e) => setAudioLink(e.target.value)}
+              readOnly
             />
             <button className="btn" type="button" onClick={openWidget}>
               Upload Audio
@@ -250,6 +251,7 @@ const AddMusicModal = ({
               placeholder="Cover Image Link"
               value={coverLink}
               onChange={(e) => setCoverLink(e.target.value)}
+              readOnly
             />
             <button className="btn" type="button" onClick={openWidget}>
               Upload Image
